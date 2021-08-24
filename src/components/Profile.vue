@@ -2,7 +2,7 @@
   <div class="container">
     <header class="jumbotron">
       <h4>
-        <strong>Username: {{ currentUser.username }}</strong>
+        <strong>Email: {{ currentUser.email }}</strong>
       </h4>
     </header>
   </div>
@@ -18,7 +18,7 @@ export default {
   },
   mounted() {
     if (!this.currentUser) {
-      this.$router.push("/login");
+      this.$router.push("/profile");
     }
   },
 };
