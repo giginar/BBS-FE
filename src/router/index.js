@@ -1,19 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
+import Profile from '../components/Profile.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'Login',
-    component: Login
-  },
+  // {
+  //   path: '/',
+  //   name: 'Classes',
+  //   component: Classes
+  // },
   {
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile
   }
 ]
 

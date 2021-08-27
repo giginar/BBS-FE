@@ -5,7 +5,7 @@
         <div class="form-group">
           <label for="email">Email</label>
           <input
-            v-model="loginRequest.email"
+            v-model="user.email"
             type="text"
             class="form-control"
             name="email"
@@ -14,7 +14,7 @@
         <div class="form-group">
           <label for="password">Password</label>
           <input
-            v-model="loginRequest.password"
+            v-model="user.password"
             type="password"
             class="form-control"
             name="password"
@@ -41,13 +41,13 @@
 
 <script>
 //import User from "../models/user";
-import LoginRequest from "../models/loginRequest";
+import user from "../models/user";
 
 export default {
   name: "Login",
   data() {
     return {
-      loginRequest: new LoginRequest('', '', ''),
+      user: new user('', '', ''),
       loading: false,
       message: ''
     };
@@ -59,15 +59,15 @@ export default {
   },
   created() {
     if (this.loggedIn) {
-      this.$router.push("/home");
+      this.$router.push("/profile");
     }
   },
   methods: {
     handleLogin() {
       this.loading = true;
-          this.$store.dispatch("auth/login", this.loginRequest).then(
+          this.$store.dispatch("auth/login", this.user).then(
             () => {
-              this.$router.push("/home");
+              this.$router.push("/profile");
             },
             error => {
               this.loading = false;

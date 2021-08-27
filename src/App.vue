@@ -2,13 +2,6 @@
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
       <a href class="navbar-brand" @click.prevent>Banana Student System</a>
-      <div class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link to="/login" class="nav-link">
-            <font-awesome-icon icon="sign-in-alt" />Login
-          </router-link>
-        </li>
-      </div>
 
       <div v-if="!currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -22,7 +15,7 @@
         <li class="nav-item">
           <router-link to="/profile" class="nav-link">
             <font-awesome-icon icon="user" />
-            {{ currentUser.email}}
+            {{ currentUser.email }}
           </router-link>
         </li>
         <li class="nav-item">
