@@ -14,37 +14,32 @@ import UserService from '../services/user.service';
 //import axios from 'axios';
 
 export default {
-  name: 'Profile',
+  name: "Profile",
   data() {
     return {
-      //activeUser: '',
-      activeUser: [],
+      activeUser: {},
       is_loading: false,
       modalShow: false
     };
   },
-  mounted() {
-    if (!this.currentUser) {
-      this.$router.push("/login");
-    }
-  },
+  // mounted() {
+  //   if (!this.currentUser) {
+  //     this.$router.push("/login");
+  //   }
+  // },
   
   components: {},
   created() {
-    this.is_loading = true;
+    // this.is_loading = true;
     this.fetchAllDetails();
   },
   methods: {
-    /**
-     * This method gets all the pizzas from the database using BE.
-     */
     async fetchAllDetails() {
-      UserService.getUserDetail(this.currentUser.email, this.currentUser.isTeacher).then(
-        (response) => (this.activeUser = response.data),
-        console.log(this.currentUser.email),
-        console.log(this.currentUser.isTeacher)
+      UserService.getUserDetail().then(
+        (response) => (
+          this.activeUser = response.data
+        ),
       );
-      this.is_loading = false;
     },
     showMessage() {
       this.modalShow = !this.modalShow;
