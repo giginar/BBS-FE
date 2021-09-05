@@ -4,15 +4,21 @@ import authHeader from './auth-header';
 const API_URL = 'http://localhost:8080/';
 
 class UserService {
-    getUserDetail() {
-        return axios.post(API_URL + 'user/detail', {
-            headers: authHeader(),
-            params: {
+    userDetail() {
+            const params = {
                 email: "ue@gmail.com",
                 isTeacher: false,
             }
-        })
-    }
+            return axios.post(API_URL + 'user/detail', params, {
+                headers: authHeader()
+            })
+        }
+        // downloadFile() {
+        //     return axios.get(API_URL + 'user/download' {
+        //         headers: authHeader()
+        //     })
+        // },
 }
+
 
 export default new UserService();
