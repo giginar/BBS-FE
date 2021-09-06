@@ -13,6 +13,14 @@
         <b-card-text>Some quick example text to build on the card and make up the bulk of the card's content.</b-card-text>
       </b-card>
       <br />
+	<div>
+     <h3>Upload Multiple Files</h3>
+     <form id="uploadFiles" name="uploadFiles" method="post" th:action=@{http://localhost:8080/file/uploadFiles} encType="multipart/form-data">
+       <input type="file" name="files" multiple required />
+       <button type="submit">Submit</button>
+     </form>
+   </div>
+      <br />
       <h2>Assignments</h2>
       <div v-for="a in this.assignments" :key="a.id">
         <b-list-group>
