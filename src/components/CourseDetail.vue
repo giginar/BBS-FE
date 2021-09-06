@@ -13,13 +13,13 @@
         <b-card-text>Some quick example text to build on the card and make up the bulk of the card's content.</b-card-text>
       </b-card>
       <br />
-	<div>
-     <h3>Upload Multiple Files</h3>
-     <form id="uploadFiles" name="uploadFiles" method="post" th:action=@{http://localhost:8080/file/uploadFiles} encType="multipart/form-data">
-       <input type="file" name="files" multiple required />
-       <button type="submit">Submit</button>
-     </form>
-   </div>
+      <div>
+        <h3>Upload Multiple Files</h3>
+        <form id="uploadFiles" name="uploadFiles" enctype="multipart/form-data">
+          <input type="file" name="files" multiple required />
+          <button type="submit" ref="uploadBtn" @onChange="upload">Submit</button>
+        </form>
+      </div>
       <br />
       <h2>Assignments</h2>
       <div v-for="a in this.assignments" :key="a.id">
@@ -39,31 +39,33 @@
         </b-card>
       </div>
       <div>
-    <b-form-textarea
-      id="textarea"
-      v-model="text"
-      placeholder="Enter something..."
-      rows="3"
-      max-rows="6"
-    ></b-form-textarea>
+        <b-form-textarea
+          id="textarea"
+          v-model="text"
+          placeholder="Enter something..."
+          rows="3"
+          max-rows="6"
+        ></b-form-textarea>
 
-    <pre class="mt-3 mb-0">{{ messageText }}</pre>
-    <b-button variant="primary" class="btn btn-primary btn-lg top-right-button mr-1">Post</b-button>
-
-  </div>
+        <pre class="mt-3 mb-0">{{ messageText }}</pre>
+        <b-button variant="primary" class="btn btn-primary btn-lg top-right-button mr-1">Post</b-button>
+      </div>
     </div>
   </div>
 </template>
 
 
 <script>
+
+import axios from 'axios';
+
 export default {
   name: "Home",
   data() {
     return {
       selectedCourse: {},
       assignments: ["ders1", "ders2", "ders3"],
-      messageText: '',
+      messageText: ""
     };
   },
   components: {},
@@ -73,7 +75,19 @@ export default {
     //     this.assignments = this.selectedCourse.assignments;
     console.log(this.selectedCourse.name);
   },
-  methods: {}
+  methods: {
+    upload() {
+      let files = this.$refs.uploadBtn.files;
+      let formData = new FormData();
+
+      // if you want to upload multiple files at once loop
+      // through the array of files
+      formData.append("attachment", files[0]);
+      axios
+        .post("http://localhost:8080/file/uploadFiles", formData)
+        .then(response => console.log(response.data));
+    }
+  }
 };
 </script>
 
@@ -84,6 +98,6 @@ export default {
   left: 0;
 }
 .chatContainer {
-	text-align: left;
+  text-align: left;
 }
 </style>
