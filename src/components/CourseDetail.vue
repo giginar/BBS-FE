@@ -28,16 +28,14 @@
       <h2>Assignments</h2>
       <div v-for="a in this.assignments" :key="a.id">
         <b-list-group>
-          <b-list-group-item href="#">{{ a.name }}</b-list-group-item>
+          <b-list-group-item @click="downloadFile(a.id, a.name)" href="#">{{ a.name }}</b-list-group-item>
         </b-list-group>
       </div>
       <br />
       <h2>Course Board</h2>
       <div class="chatContainer" v-for="chat in this.messageList" :key="chat.id">
         <b-card :title="chat.senderName" :sub-title="chat.date">
-          <b-card-text>
-           {{ chat.message }}
-          </b-card-text>
+          <b-card-text>{{ chat.message }}</b-card-text>
         </b-card>
       </div>
       <div>
@@ -50,7 +48,11 @@
         ></b-form-textarea>
 
         <pre class="mt-3 mb-0">{{ messageText }}</pre>
-        <b-button variant="primary" @click="sendMessage" class="btn btn-primary btn-lg top-right-button mr-1">Post</b-button>
+        <b-button
+          variant="primary"
+          @click="sendMessage"
+          class="btn btn-primary btn-lg top-right-button mr-1"
+        >Post</b-button>
       </div>
     </div>
   </div>
@@ -68,10 +70,10 @@ export default {
       currentUser: {},
       selectedCourse: {},
       assignments: [],
-      messageText: '',
+      messageText: "",
       FILE: null,
       messageList: [],
-      message:'',
+      message: ""
     };
   },
   components: {},
@@ -81,7 +83,7 @@ export default {
     this.currentUser = this.$route.params.myUser;
     console.log(this.currentUser);
     this.assignments = this.selectedCourse.assignments;
-    console.log(this.selectedCourse)
+    console.log(this.selectedCourse);
     console.log(this.selectedCourse.name);
     this.getAllMessageList();
     this.getAllDocuments();
@@ -108,18 +110,44 @@ export default {
       });
     },
     async sendMessage() {
-      console.log("--> message " + this.message, this.selectedCourse.id, this.currentUser.id)
-     UserService.sendMessage(this.message, this.selectedCourse.id, this.currentUser.id).then(response => {
+      console.log(
+        "--> message " + this.message,
+        this.selectedCourse.id,
+        this.currentUser.id
+      );
+      UserService.sendMessage(
+        this.message,
+        this.selectedCourse.id,
+        this.currentUser.id
+      ).then(response => {
         console.log("--> new messageList");
         console.log(response.data);
         this.messageList = response.data;
-        this.message = ''; 
+        this.message = "";
         console.log(this.messageList);
-      }); 
+      });
     },
     async getAllDocuments() {
       UserService.getAllDocuments().then(response => {
         this.assignments = response.data;
+      });
+    },
+
+    downloadFile(fileId, fileName) {
+      console.log("dowload me!!!");
+      UserService.downloadFile(fileId).then(response => {
+        console.log(response.data);
+
+        var fileExtension = fileName.split(".").pop();
+        console.log(fileExtension); // three
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement("a");
+
+        fileLink.href = fileURL;
+        fileLink.setAttribute("download", "file." + fileExtension);
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
       });
     }
   }

@@ -33,14 +33,14 @@ class UserService {
     }
 
     getAllDocuments() {
-            return axios.get(API_URL + 'file/downloadFiles')
+        return axios.get(API_URL + 'file/downloadFiles')
 
-        }
-        // downloadFile() {
-        //     return axios.get(API_URL + 'user/download' {
-        //         headers: authHeader()
-        //     })
-        // },
+    }
+    downloadFile(fileId) {
+        return axios.get(API_URL + 'file/downloadFile/' + fileId, {
+            responseType: 'blob',
+        })
+    }
 }
 
 
