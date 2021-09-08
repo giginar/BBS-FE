@@ -8,11 +8,10 @@ class AuthService {
             .post(API_URL + 'user/login', {
                 email: user.email,
                 password: user.password,
-                isTeacher: false
+                isTeacher: 0,
             })
             .then(response => {
                 if (response.data.accessToken) {
-                    //this.getUserInfo(user.email, user.isTeacher);
                     localStorage.setItem('user', JSON.stringify(response.data));
                     console.log(response.data)
                     return response.data;

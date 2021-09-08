@@ -40,7 +40,7 @@
 </template>
 
 <script>
-//import User from "../models/user";
+
 import user from "../models/user";
 
 export default {

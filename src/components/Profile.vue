@@ -30,7 +30,6 @@
 
 <script>
 import UserService from "../services/user.service";
-//import axios from 'axios';
 
 export default {
   name: "Profile",
@@ -67,7 +66,7 @@ export default {
       console.log(selectedCourse.name)
       this.$router.push({
         name: "CourseDetail",
-        params: { data: selectedCourse}
+        params: { data: selectedCourse, myUser: this.activeUser}
       });
     },
 
