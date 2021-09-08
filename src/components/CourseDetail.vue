@@ -115,17 +115,19 @@ export default {
         this.selectedCourse.id,
         this.currentUser.id
       );
-      UserService.sendMessage(
-        this.message,
-        this.selectedCourse.id,
-        this.currentUser.id
-      ).then(response => {
-        console.log("--> new messageList");
-        console.log(response.data);
-        this.messageList = response.data;
-        this.message = "";
-        console.log(this.messageList);
-      });
+      if (this.message.length > 3) {
+        UserService.sendMessage(
+          this.message,
+          this.selectedCourse.id,
+          this.currentUser.id
+        ).then(response => {
+          console.log("--> new messageList");
+          console.log(response.data);
+          this.messageList = response.data;
+          this.message = "";
+          console.log(this.messageList);
+        });
+      }
     },
     async getAllDocuments() {
       UserService.getAllDocuments().then(response => {
