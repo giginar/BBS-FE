@@ -1,17 +1,20 @@
 
 <template>
   <div class="courseDetail">
+      <div class="box-image">
+        <b-card 
+          overlay="fill"
+          :img-src="this.selectedCourse.image"
+          img-alt="Card Image"
+          text-variant="white"
+          img-height="200"
+          :title="this.selectedCourse.courseCode"
+          :sub-title="this.selectedCourse.name"
+        >
+          <b-card-text>{{ this.selectedCourse.description }}</b-card-text>
+        </b-card>
+      </div>
     <div class="full-width-div">
-      <b-card
-        overlay
-        img-src="https://picsum.photos/900/250/?image=3"
-        img-alt="Card Image"
-        text-variant="white"
-        :title="this.selectedCourse.name"
-        :sub-title="this.selectedCourse.courseCode"
-      >
-        <b-card-text>Some quick example text to build on the card and make up the bulk of the card's content.</b-card-text>
-      </b-card>
       <br />
       <div>
         <h3>Upload Multiple Files</h3>
@@ -20,7 +23,7 @@
             <input type="file" @change="onFileUpload" />
           </div>
           <div class="form-group">
-            <button class="btn btn-primary btn-block btn-lg">Upload File</button>
+            <button class="btn btn-warning btn-block btn-lg">Upload File</button>
           </div>
         </form>
       </div>
@@ -32,6 +35,10 @@
         </b-list-group>
       </div>
       <br />
+      <br />
+      <br />
+    </div>
+    <div class="chat-board">
       <h2>Course Board</h2>
       <div class="chatContainer" v-for="chat in this.messageList" :key="chat.id">
         <b-card :title="chat.senderName" :sub-title="chat.date">
@@ -51,7 +58,7 @@
         <b-button
           variant="primary"
           @click="sendMessage"
-          class="btn btn-primary btn-lg top-right-button mr-1"
+          class="btn btn-warning btn-block btn-lg"
         >Post</b-button>
       </div>
     </div>
@@ -64,6 +71,12 @@ import axios from "axios";
 import UserService from "../services/user.service";
 
 export default {
+
+  mounted() {
+    if (!this.currentUser) {
+      this.$router.push("/login");
+    }
+  },
   name: "Home",
   data() {
     return {
@@ -157,12 +170,29 @@ export default {
 </script>
 
 <style scoped>
+.body {
+  display: flex;
+}
 .full-width-div {
-  position: absolute;
-  width: 100%;
+  float: left;
+  width:50%;
   left: 0;
+  color: white;
 }
 .chatContainer {
   text-align: left;
+  color: black;
+}
+.b-card-image {
+  object-fit: fill;
+}
+.h2 {
+  color: white;
+}
+.chat-board {
+  float: right;
+  width: 45%;
+  margin-top: 20px;
+  color: white;
 }
 </style>

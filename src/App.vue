@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <a href class="navbar-brand" @click.prevent>Banana Student System</a>
+    <b-navbar class="navbar" variant="warning" type="light" >
+        <a href class="navbar-brand" @click="openProfile()">Banana Student System</a>
 
       <div v-if="!currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -24,7 +24,7 @@
           </a>
         </li>
       </div>
-    </nav>
+    </b-navbar>
 
     <div class="container">
       <router-view />
@@ -33,16 +33,25 @@
 </template>
 
 <script>
+
 export default {
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
     }
   },
+
+  created: function () {
+    document.body.style.backgroundColor = "#424242";
+  },
+  
   methods: {
     logOut() {
       this.$store.dispatch('auth/logout');
       this.$router.push('/login');
+    },
+    openProfile() {
+      this.$router.push("/profile");
     }
   }
 };
@@ -57,16 +66,16 @@ export default {
   color: #2c3e50;
 }
 
-#nav {
+#b-navbar {
   padding: 30px;
 }
 
-#nav a {
+#b-navbar  a {
   font-weight: bold;
   color: #2c3e50;
 }
 
-#nav a.router-link-exact-active {
+#b-navbar  a.router-link-exact-active {
   color: #42b983;
 }
 </style>

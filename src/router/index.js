@@ -5,12 +5,11 @@ import Profile from '../components/Profile.vue'
 import CourseDetail from '../components/CourseDetail.vue'
 Vue.use(VueRouter)
 
-const routes = [
-    // {
-    //   path: '/',
-    //   name: 'Classes',
-    //   component: Classes
-    // },
+const routes = [{
+        path: '/',
+        name: 'Login',
+        component: Login
+    },
     {
         path: '/login',
         name: 'Login',
