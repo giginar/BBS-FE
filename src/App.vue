@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <b-navbar class="navbar" variant="warning" type="light" >
-        <a href class="navbar-brand" @click="openProfile()">Banana Student System</a>
+        <a href class="navbar-brand" @click.prevent="">Banana Student System</a>
 
       <div v-if="!currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">

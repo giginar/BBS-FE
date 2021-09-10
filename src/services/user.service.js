@@ -4,9 +4,9 @@ import authHeader from './auth-header';
 const API_URL = 'http://localhost:8080/';
 
 class UserService {
-    userDetail() {
+    userDetail(userEmail) {
         const params = {
-            email: "ue@gmail.com",
+            email: userEmail,
             isTeacher: 0,
         }
         return axios.post(API_URL + 'user/detail', params, {

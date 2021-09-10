@@ -68,21 +68,23 @@ export default {
       is_loading: false,
       modalShow: false,
       date: new Date(),
-      bgimage: "url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixers.hk%2Fwallpapers%2Fvector-seamless-banana-pattern-modern-tropical-print-127184142&psig=AOvVaw0paIckHgDmrk2CIqIQXydw&ust=1631305870847000&source=images&cd=vfe&ved=2ahUKEwiunPGI3vLyAhVQ7rsIHV0qCOYQjRx6BAgAEAk)"
+      bgimage:
+        "url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixers.hk%2Fwallpapers%2Fvector-seamless-banana-pattern-modern-tropical-print-127184142&psig=AOvVaw0paIckHgDmrk2CIqIQXydw&ust=1631305870847000&source=images&cd=vfe&ved=2ahUKEwiunPGI3vLyAhVQ7rsIHV0qCOYQjRx6BAgAEAk)"
     };
   },
 
   components: {},
   created() {
+    this.currentUser = this.$route.params.data;
+    console.log(this.currentUser);
     this.fetchAllDetails();
-    this.currentUser = localStorage.getItem('user');
-        console.log("this.currentUser")
-    console.log(this.currentUser)
   },
 
   methods: {
     async fetchAllDetails() {
-      UserService.userDetail().then(response => {
+      console.log("--> fetchAllDetails");
+      console.log(this.currentUser.email);
+      UserService.userDetail(this.currentUser.email).then(response => {
         console.log("--> fetchAllDetails");
         this.activeUser = response.data;
         this.courseList = response.data.registeredCourses;
@@ -154,5 +156,6 @@ a:active {
 a:hover {
   color: inherit;
 }
+
 </style>
 

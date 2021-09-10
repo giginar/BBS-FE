@@ -4,35 +4,20 @@
       <form name="form" @submit.prevent="handleLogin">
         <div class="form-group">
           <label for="email">Email</label>
-          <input
-            v-model="user.email"
-            type="text"
-            class="form-control"
-            name="email"
-          />
+          <input v-model="user.email" type="text" class="form-control" name="email" />
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input
-            v-model="user.password"
-            type="password"
-            class="form-control"
-            name="password"
-          />
+          <input v-model="user.password" type="password" class="form-control" name="password" />
         </div>
         <div class="form-group">
           <button class="btn btn-warning btn-block" :disabled="loading">
-            <span
-              v-show="loading"
-              class="spinner-border spinner-border-sm"
-            ></span>
+            <span v-show="loading" class="spinner-border spinner-border-sm"></span>
             <span>Login</span>
           </button>
         </div>
         <div class="form-group">
-          <div v-if="message" class="alert alert-danger" role="alert">
-            {{ message }}
-          </div>
+          <div v-if="message" class="alert alert-danger" role="alert">{{ message }}</div>
         </div>
       </form>
     </div>
@@ -40,16 +25,15 @@
 </template>
 
 <script>
-
 import user from "../models/user";
 
 export default {
   name: "Login",
   data() {
     return {
-      user: new user('', '', ''),
+      user: new user("", "", ""),
       loading: false,
-      message: ''
+      message: ""
     };
   },
   computed: {
@@ -65,16 +49,22 @@ export default {
   methods: {
     handleLogin() {
       this.loading = true;
-          this.$store.dispatch("auth/login", this.user).then(
-            () => {
-              this.$router.push("/profile");
-            },
-            error => {
-              this.loading = false;
-              this.message = "username or password is wrong";
-              console.log(error.message)
-            },
-          );
+      this.$store.dispatch("auth/login", this.user).then(
+        () => {
+          console.log("handle login response");
+          console.log(this.user);
+          // this.$router.push("/profile");
+          this.$router.push({
+            name: "Profile",
+            params: { data: this.user }
+          });
+        },
+        error => {
+          this.loading = false;
+          this.message = "username or password is wrong";
+          console.log(error.message);
+        }
+      );
     }
   }
 };
